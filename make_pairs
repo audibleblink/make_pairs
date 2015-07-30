@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require_relative 'student'
+require_relative 'matchmaker'
+require_relative 'backoffice_parser'
+require 'json'
+
+backoffice_input = JSON.parse(STDIN.read)
+student_names    = BackofficeParser.student_names(backoffice_input)
+times_to_repeat  = ARGV.first.to_i || 1
+
+students = student_names.map do |name|
+  Student.new(name: name, previous_pairs: [])
+end
+
+matcher = nil
+times_to_repeat.times do
+  matcher = MatchMaker.new(students).make_pairs
+end
+puts matcher

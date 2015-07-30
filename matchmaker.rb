@@ -11,7 +11,7 @@ class MatchMaker
   def make_pairs
     students.each do |stu_x|
       next if pairs.include? stu_x
-      
+
       students.reverse_each do |stu_y|
         next if pairs.include?(stu_y)
         unless previously_paired?(stu_x, stu_y)
@@ -30,7 +30,7 @@ class MatchMaker
 
   private
     def previously_paired? stu_x, stu_y
-      stu_x.previous_pairs.include?(stu_y.name) && 
+      stu_x.previous_pairs.include?(stu_y.name) &&
         stu_y.previous_pairs.include?(stu_x.name)
     end
 
@@ -45,5 +45,5 @@ class MatchMaker
       end
         .map {|pair| "Pair: #{pair[0]} & #{pair[1]}  "}.join("\n")
     end
-  
+
 end
